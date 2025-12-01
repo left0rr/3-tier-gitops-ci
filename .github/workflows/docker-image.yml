@@ -93,8 +93,8 @@ jobs:
           file: ./api/Dockerfile
           push: true
           tags: |
-            left0rr//backend:latest
-            left0rr//backend:${{ env.IMAGE_TAG }}
+            left0rr/backend:latest
+            left0rr/backend:${{ env.IMAGE_TAG }}
 
   build_frontend_docker_image_and_push:
     runs-on: ubuntu-latest
@@ -122,8 +122,8 @@ jobs:
           file: ./client/Dockerfile
           push: true
           tags: |
-            left0rr//frontend:latest
-            left0rr//frontend:${{ env.IMAGE_TAG }}
+            left0rr/frontend:latest
+            left0rr/frontend:${{ env.IMAGE_TAG }}
 
   trivy_image_scan:
     runs-on: ubuntu-latest
@@ -138,7 +138,7 @@ jobs:
         uses: aquasecurity/trivy-action@0.28.0
         with:
           scan-type: image
-          image-ref: left0rr//backend:${{ env.IMAGE_TAG }}
+          image-ref: left0rr/backend:${{ env.IMAGE_TAG }}
           format: table
           exit-code: '0'                 # set to '1' to fail on vulns
           ignore-unfixed: true
@@ -149,7 +149,7 @@ jobs:
         uses: aquasecurity/trivy-action@0.28.0
         with:
           scan-type: image
-          image-ref: left0rr//frontend:${{ env.IMAGE_TAG }}
+          image-ref: left0rr/frontend:${{ env.IMAGE_TAG }}
           format: table
           exit-code: '0'
           ignore-unfixed: true
@@ -163,7 +163,7 @@ jobs:
       - name: Checkout CD repo
         uses: actions/checkout@v4
         with:
-          repository: left0rr//3-tier-gitops-cd
+          repository: left0rr/3-tier-gitops-cd
           ref: main
           token: ${{ secrets.CD_REPO_TOKEN }}
           path: cd
@@ -185,7 +185,7 @@ jobs:
                | .spec.template.spec.containers[]
                | select(.name=="backend")
                | .image)
-            = "left0rr//backend:" + strenv(IMAGE_TAG)
+            = "left0rr/backend:" + strenv(IMAGE_TAG)
           ' k8s-prod/backend.yaml
 
           # -- Update ONLY Deployment images (frontend)
@@ -194,7 +194,7 @@ jobs:
                | .spec.template.spec.containers[]
                | select(.name=="frontend")
                | .image)
-            = "left0rr//frontend:" + strenv(IMAGE_TAG)
+            = "left0rr/frontend:" + strenv(IMAGE_TAG)
           ' k8s-prod/frontend.yaml
 
       - name: Commit & push to CD repo
