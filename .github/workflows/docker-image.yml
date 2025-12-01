@@ -139,7 +139,7 @@ jobs:
         uses: aquasecurity/trivy-action@0.28.0
         with:
           scan-type: image
-          image-ref: left0rr/backend:${{ env.IMAGE_TAG }}
+          image-ref: left0rrr/backend:${{ env.IMAGE_TAG }}
           format: table
           exit-code: '0'                 # set to '1' to fail on vulns
           ignore-unfixed: true
@@ -150,7 +150,7 @@ jobs:
         uses: aquasecurity/trivy-action@0.28.0
         with:
           scan-type: image
-          image-ref: left0rr/frontend:${{ env.IMAGE_TAG }}
+          image-ref: left0rrr/frontend:${{ env.IMAGE_TAG }}
           format: table
           exit-code: '0'
           ignore-unfixed: true
