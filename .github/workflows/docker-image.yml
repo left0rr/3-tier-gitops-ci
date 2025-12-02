@@ -186,7 +186,7 @@ jobs:
                | .spec.template.spec.containers[]
                | select(.name=="backend")
                | .image)
-            = "left0rr/backend:" + strenv(IMAGE_TAG)
+            = "left0rrr/backend:" + strenv(IMAGE_TAG)
           ' k8s-prod/backend.yaml
 
           # -- Update ONLY Deployment images (frontend)
@@ -195,7 +195,7 @@ jobs:
                | .spec.template.spec.containers[]
                | select(.name=="frontend")
                | .image)
-            = "left0rr/frontend:" + strenv(IMAGE_TAG)
+            = "left0rrr/frontend:" + strenv(IMAGE_TAG)
           ' k8s-prod/frontend.yaml
 
       - name: Commit & push to CD repo
